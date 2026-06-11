@@ -147,7 +147,7 @@ slide_know("知识讲解", "how old / how long / how soon", [
 ])
 
 # P14 how often / how far + 易混对比
-slide_know("知识讲解", "how often / how far + 三兄弟大比拼", [
+slide_know("知识讲解", "how often / how far + 易混三兄弟", [
     ("box", "how often —— 频率(多久一次)", ["—**How often** do you exercise?    —**Twice a week.**"], BLUE_L, BLUE),
     ("box", "how far —— 距离(多远)", ["—**How far** is it from home to school?    —Ten kilometers."], ORANGE_L, ORANGE),
     ("gap", 0.05),
@@ -701,7 +701,7 @@ cloze_slide("第 3–4 空 · 名词复现 + 动词搭配",
       "A. proves", "证明——用一道道菜**证明**她的爱")],
     "名词看复现(下文 between...and 提示纽带);动词看搭配和语义。")
 
-cloze_slide("第 5 空 · 逻辑复现(图示:母鸡 → 鸡汤)",
+cloze_slide("第 5 空 · 逻辑复现(母鸡→鸡汤)",
     [(5, "In her hands, a fat ___ can become a pot of delicious chicken soup.",
       "A. hen        B. fish        C. duck        D. cow",
       "A. hen", "母鸡 🐔 → chicken soup 鸡汤!后文 chicken 就是答案的影子")],
