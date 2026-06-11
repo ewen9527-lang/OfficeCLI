@@ -135,57 +135,68 @@ def header(slide, tag, title, source=None, tag_fill=ORANGE):
 def new_slide():
     return prs.slides.add_slide(BLANK)
 
-# ---------- 点击动画(p:timing 注入) ----------
+# ---------- 动画(p:timing 注入) ----------
+# 形状命名约定:
+#   auto:K|effect  → 随页自动浮现,K=级联步序(0,1,2...),每步延迟250ms
+#   clickN|effect  → 第N次单击触发出现
+# effect: fade(淡入) / wipe(自左擦入) / fly(自底飞入)
 NSMAP_P = "http://schemas.openxmlformats.org/presentationml/2006/main"
-def _p(tag): return f"{{{NSMAP_P}}}{tag}"
 
-def _effect_par(ids, spid, effect, node_type):
-    """单个形状的进入效果:set visible + animEffect"""
-    preset = {"fade": (10, 0, "fade"), "wipe": (22, 8, "wipe(right)")}[effect]
-    pid, psub, filt = preset
-    e1, e2, e3 = next(ids), next(ids), next(ids)
-    return f"""<p:par xmlns:p="{NSMAP_P}">
- <p:cTn id="{e1}" presetID="{pid}" presetClass="entr" presetSubtype="{psub}" fill="hold" grpId="0" nodeType="{node_type}">
-  <p:stCondLst><p:cond delay="0"/></p:stCondLst>
-  <p:childTnLst>
-   <p:set>
+_PRESETS = {"fade": (10, 0), "wipe": (22, 8), "fly": (2, 4)}
+
+def _effect_par(ids, spid, effect, node_type, delay=0):
+    pid, psub = _PRESETS[effect]
+    e1, e2 = next(ids), next(ids)
+    parts = [f"""<p:set>
     <p:cBhvr>
      <p:cTn id="{e2}" dur="1" fill="hold"><p:stCondLst><p:cond delay="0"/></p:stCondLst></p:cTn>
      <p:tgtEl><p:spTgt spid="{spid}"/></p:tgtEl>
      <p:attrNameLst><p:attrName>style.visibility</p:attrName></p:attrNameLst>
     </p:cBhvr>
     <p:to><p:strVal val="visible"/></p:to>
-   </p:set>
-   <p:animEffect transition="in" filter="{filt}">
+   </p:set>"""]
+    if effect in ("fade", "wipe"):
+        filt = "fade" if effect == "fade" else "wipe(right)"
+        e3 = next(ids)
+        parts.append(f"""<p:animEffect transition="in" filter="{filt}">
     <p:cBhvr><p:cTn id="{e3}" dur="500"/><p:tgtEl><p:spTgt spid="{spid}"/></p:tgtEl></p:cBhvr>
-   </p:animEffect>
-  </p:childTnLst>
+   </p:animEffect>""")
+    else:  # fly: 自底飞入(ppt_x 不变,ppt_y 从屏外到位)
+        a1, a2 = next(ids), next(ids)
+        parts.append(f"""<p:anim calcmode="lin" valueType="num">
+    <p:cBhvr additive="base">
+     <p:cTn id="{a1}" dur="500" fill="hold"/>
+     <p:tgtEl><p:spTgt spid="{spid}"/></p:tgtEl>
+     <p:attrNameLst><p:attrName>ppt_x</p:attrName></p:attrNameLst>
+    </p:cBhvr>
+    <p:tavLst>
+     <p:tav tm="0"><p:val><p:strVal val="#ppt_x"/></p:val></p:tav>
+     <p:tav tm="100000"><p:val><p:strVal val="#ppt_x"/></p:val></p:tav>
+    </p:tavLst>
+   </p:anim>
+   <p:anim calcmode="lin" valueType="num">
+    <p:cBhvr additive="base">
+     <p:cTn id="{a2}" dur="500" fill="hold"/>
+     <p:tgtEl><p:spTgt spid="{spid}"/></p:tgtEl>
+     <p:attrNameLst><p:attrName>ppt_y</p:attrName></p:attrNameLst>
+    </p:cBhvr>
+    <p:tavLst>
+     <p:tav tm="0"><p:val><p:strVal val="1+#ppt_h/2"/></p:val></p:tav>
+     <p:tav tm="100000"><p:val><p:strVal val="#ppt_y"/></p:val></p:tav>
+    </p:tavLst>
+   </p:anim>""")
+    return f"""<p:par xmlns:p="{NSMAP_P}">
+ <p:cTn id="{e1}" presetID="{pid}" presetClass="entr" presetSubtype="{psub}" fill="hold" grpId="0" nodeType="{node_type}">
+  <p:stCondLst><p:cond delay="{delay}"/></p:stCondLst>
+  <p:childTnLst>{''.join(parts)}</p:childTnLst>
  </p:cTn>
 </p:par>"""
 
-def apply_click_animations(slide):
-    """按形状名 click{N}|{effect} 分组注入单击触发进入动画"""
-    groups = {}
-    for sp in slide.shapes:
-        nm = sp.name or ""
-        if nm.startswith("click"):
-            head = nm.split("|")
-            idx = int(head[0][5:])
-            eff = head[1] if len(head) > 1 else "fade"
-            groups.setdefault(idx, []).append((sp.shape_id, eff))
-    if not groups:
-        return
-    counter = iter(range(3, 10000))
-    click_pars = []
-    for idx in sorted(groups):
-        inner = []
-        for j, (spid, eff) in enumerate(groups[idx]):
-            nt = "clickEffect" if j == 0 else "withEffect"
-            inner.append(_effect_par(counter, spid, eff, nt))
-        g1, g2 = next(counter), next(counter)
-        click_pars.append(f"""<p:par xmlns:p="{NSMAP_P}">
+def _wrap_group(ids, inner, trigger_delay):
+    g1, g2 = next(ids), next(ids)
+    return f"""<p:par xmlns:p="{NSMAP_P}">
  <p:cTn id="{g1}" fill="hold">
-  <p:stCondLst><p:cond delay="indefinite"/></p:stCondLst>
+  <p:stCondLst><p:cond delay="{trigger_delay}"/></p:stCondLst>
   <p:childTnLst>
    <p:par>
     <p:cTn id="{g2}" fill="hold">
@@ -195,7 +206,48 @@ def apply_click_animations(slide):
    </p:par>
   </p:childTnLst>
  </p:cTn>
-</p:par>""")
+</p:par>"""
+
+def apply_click_animations(slide):
+    auto, clicks, bld = {}, {}, []
+    for sp in slide.shapes:
+        nm = sp.name or ""
+        if nm.startswith("auto:"):
+            head = nm.split("|")
+            step = int(head[0][5:])
+            eff = head[1] if len(head) > 1 else "fade"
+            is_frame = sp._element.tag.endswith("graphicFrame")
+            auto.setdefault(step, []).append((sp.shape_id, eff, is_frame))
+        elif nm.startswith("click"):
+            head = nm.split("|")
+            idx = int(head[0][5:])
+            eff = head[1] if len(head) > 1 else "fade"
+            is_frame = sp._element.tag.endswith("graphicFrame")
+            clicks.setdefault(idx, []).append((sp.shape_id, eff, is_frame))
+    if not auto and not clicks:
+        return
+    counter = iter(range(3, 100000))
+    seq_children = []
+    if auto:
+        inner, first = [], True
+        for step in sorted(auto):
+            for spid, eff, isf in auto[step]:
+                nt = "afterEffect" if first else "withEffect"
+                inner.append(_effect_par(counter, spid, eff, nt, delay=step * 250))
+                bld.append((spid, isf))
+                first = False
+        seq_children.append(_wrap_group(counter, inner, "0"))
+    for idx in sorted(clicks):
+        inner = []
+        for j, (spid, eff, isf) in enumerate(clicks[idx]):
+            nt = "clickEffect" if j == 0 else "withEffect"
+            inner.append(_effect_par(counter, spid, eff, nt))
+            bld.append((spid, isf))
+        seq_children.append(_wrap_group(counter, inner, "indefinite"))
+    bld_xml = "".join(
+        (f'<p:bldGraphic spid="{spid}" grpId="0"><p:bldAsOne/></p:bldGraphic>'
+         if isf else f'<p:bldP spid="{spid}" grpId="0"/>')
+        for spid, isf in bld)
     timing = f"""<p:timing xmlns:p="{NSMAP_P}">
  <p:tnLst>
   <p:par>
@@ -203,7 +255,7 @@ def apply_click_animations(slide):
     <p:childTnLst>
      <p:seq concurrent="1" nextAc="seek">
       <p:cTn id="2" dur="indefinite" nodeType="mainSeq">
-       <p:childTnLst>{''.join(click_pars)}</p:childTnLst>
+       <p:childTnLst>{''.join(seq_children)}</p:childTnLst>
       </p:cTn>
       <p:prevCondLst><p:cond evt="onPrev" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:prevCondLst>
       <p:nextCondLst><p:cond evt="onNext" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:nextCondLst>
@@ -212,6 +264,7 @@ def apply_click_animations(slide):
    </p:cTn>
   </p:par>
  </p:tnLst>
+ <p:bldLst>{bld_xml}</p:bldLst>
 </p:timing>"""
     slide._element.append(etree.fromstring(timing))
 
@@ -221,46 +274,53 @@ def slide_cover(title_lines, subtitle, tag_text):
     box(s, 0, 0, PAGE_W, PAGE_H, fill=NAVY, shape=MSO_SHAPE.RECTANGLE)
     box(s, 0, Inches(5.9), PAGE_W, Inches(0.12), fill=ORANGE, shape=MSO_SHAPE.RECTANGLE)
     box(s, Inches(8.6), Inches(0.0), Inches(1.4), Inches(7.5), fill=RGBColor(0x27,0x44,0x77), shape=MSO_SHAPE.RECTANGLE)
-    chip(s, Inches(0.7), Inches(0.9), Inches(2.6), Inches(0.5), tag_text, fill=ORANGE, size=16)
-    tf = txt(s, Inches(0.7), Inches(2.2), Inches(8.6), Inches(2.6)).text_frame
+    c = chip(s, Inches(0.7), Inches(0.9), Inches(2.6), Inches(0.5), tag_text, fill=ORANGE, size=16)
+    c.name = "auto:0|fade"
+    tf = txt(s, Inches(0.7), Inches(2.2), Inches(8.6), Inches(2.6), name="auto:1|fly").text_frame
     for i, line in enumerate(title_lines):
         para(tf, line, size=40, bold=True, color=WHITE, first=(i == 0), space_after=10)
-    tf2 = txt(s, Inches(0.7), Inches(4.9), Inches(8.6), Inches(0.7)).text_frame
+    tf2 = txt(s, Inches(0.7), Inches(4.9), Inches(8.6), Inches(0.7), name="auto:2|fade").text_frame
     para(tf2, subtitle, size=20, color=RGBColor(0xCF,0xDD,0xF2), first=True)
-    tf3 = txt(s, Inches(0.7), Inches(6.3), Inches(8), Inches(0.5)).text_frame
+    tf3 = txt(s, Inches(0.7), Inches(6.3), Inches(8), Inches(0.5), name="auto:3|fade").text_frame
     para(tf3, "主讲老师:________        正式课", size=16, color=RGBColor(0x9F,0xB5,0xD5), first=True)
-    footer(s); return s
+    footer(s); apply_click_animations(s); return s
 
 def slide_section(part_no, title_en, title_cn, items=None, fill=NAVY):
     s = new_slide()
     box(s, 0, 0, PAGE_W, PAGE_H, fill=fill, shape=MSO_SHAPE.RECTANGLE)
     box(s, 0, Inches(2.0), Inches(0.25), Inches(3.5), fill=ORANGE, shape=MSO_SHAPE.RECTANGLE)
-    tf = txt(s, Inches(0.8), Inches(1.7), Inches(8.4), Inches(1.0)).text_frame
+    tf = txt(s, Inches(0.8), Inches(1.7), Inches(8.4), Inches(1.0), name="auto:0|fly").text_frame
     para(tf, part_no, size=44, bold=True, color=ORANGE, first=True)
-    tf2 = txt(s, Inches(0.8), Inches(2.9), Inches(8.6), Inches(1.0)).text_frame
+    tf2 = txt(s, Inches(0.8), Inches(2.9), Inches(8.6), Inches(1.0), name="auto:1|fade").text_frame
     para(tf2, title_en, size=30, bold=True, color=WHITE, first=True, space_after=6)
     para(tf2, title_cn, size=24, bold=True, color=RGBColor(0xCF,0xDD,0xF2))
     if items:
-        tf3 = txt(s, Inches(0.85), Inches(4.6), Inches(8.4), Inches(1.8)).text_frame
+        tf3 = txt(s, Inches(0.85), Inches(4.6), Inches(8.4), Inches(1.8), name="auto:2|fade").text_frame
         for i, it in enumerate(items):
             para(tf3, "·  " + it, size=17, color=RGBColor(0xBF,0xD0,0xE8), first=(i == 0), space_after=6)
-    footer(s); return s
+    footer(s); apply_click_animations(s); return s
 
 def slide_end():
     s = new_slide()
     box(s, 0, 0, PAGE_W, PAGE_H, fill=NAVY, shape=MSO_SHAPE.RECTANGLE)
-    tf = txt(s, Inches(0.5), Inches(2.3), Inches(9), Inches(1.2)).text_frame
+    tf = txt(s, Inches(0.5), Inches(2.3), Inches(9), Inches(1.2), name="auto:0|fly").text_frame
     para(tf, "谢谢观看  Thanks!", size=44, bold=True, color=WHITE, align=PP_ALIGN.CENTER, first=True)
-    b = box(s, Inches(1.5), Inches(4.2), Inches(7), Inches(1.5), fill=RGBColor(0x27,0x44,0x77))
+    b = box(s, Inches(1.5), Inches(4.2), Inches(7), Inches(1.5), fill=RGBColor(0x27,0x44,0x77), name="auto:1|fade")
     tf2 = b.text_frame
     para(tf2, "下讲预告", size=16, bold=True, color=ORANGE, align=PP_ALIGN.CENTER, first=True, space_after=8)
     para(tf2, "L17 期末复习①(篇章:语法填空+阅读+完形)", size=20, bold=True, color=WHITE, align=PP_ALIGN.CENTER)
-    footer(s); return s
+    footer(s); apply_click_animations(s); return s
 
 # ---------- 版式:知识/解析/小结(标题+内容块流式) ----------
-def content_blocks(s, y0, blocks):
+def content_blocks(s, y0, blocks, auto=True, step0=0):
     """blocks: ('p',text,size) / ('box',title,lines,fill,line) / ('table',rows,widths,heights) / ('gap',h)"""
     y = y0
+    step = step0
+    def anm():
+        nonlocal step
+        n = f"auto:{step}|fade" if auto else None
+        step += 1
+        return n
     for blk in blocks:
         kind = blk[0]
         if kind == "gap":
@@ -270,14 +330,15 @@ def content_blocks(s, y0, blocks):
             kw = blk[3] if len(blk) > 3 else {}
             n_lines = max(1, len(text) * (size / 2 + 2) // 620 + 1) if False else text.count("\n") + 1
             h = Inches(0.34) * n_lines * (size / 17.0)
-            tf = txt(s, Inches(0.5), y, Inches(9.0), h).text_frame
+            sp = txt(s, Inches(0.5), y, Inches(9.0), h, name=anm())
+            tf = sp.text_frame
             for i, ln in enumerate(text.split("\n")):
                 para(tf, ln, size=size, first=(i == 0), space_after=4, **kw)
             y += h + Inches(0.06)
         elif kind == "box":
             title, lines, fill, line_c = blk[1], blk[2], blk[3], blk[4]
             h = blk[5] if len(blk) > 5 else Inches(0.42 + 0.34 * len(lines) + (0.34 if title else 0))
-            b = box(s, Inches(0.5), y, Inches(9.0), h, fill=fill, line=line_c)
+            b = box(s, Inches(0.5), y, Inches(9.0), h, fill=fill, line=line_c, name=anm())
             tf = b.text_frame; tf.vertical_anchor = MSO_ANCHOR.MIDDLE
             first = True
             if title:
@@ -293,6 +354,8 @@ def content_blocks(s, y0, blocks):
             total_w = sum(widths)
             x0 = (10 - total_w) / 2
             gtbl = s.shapes.add_table(len(rows), len(widths), Inches(x0), y, Inches(total_w), Inches(row_h * len(rows)))
+            nm = anm()
+            if nm: gtbl.name = nm
             tbl = gtbl.table
             for ci, wd in enumerate(widths):
                 tbl.columns[ci].width = Inches(wd)
@@ -333,7 +396,8 @@ def slide_ex(tag, title, source, stem, options=None, answer=None, ans_label=None
     s = new_slide()
     y0 = header(s, tag, title, source=source, tag_fill=ORANGE)
     sh = stem_h or Inches(1.15)
-    sb = box(s, Inches(0.5), y0 + Inches(0.12), Inches(9.0), sh, fill=WHITE, line=RGBColor(0xD9,0xD9,0xD9))
+    sb = box(s, Inches(0.5), y0 + Inches(0.12), Inches(9.0), sh, fill=WHITE, line=RGBColor(0xD9,0xD9,0xD9),
+             name="auto:0|fade")
     tf = sb.text_frame
     tf.auto_size = MSO_AUTO_SIZE.NONE
     for i, ln in enumerate(stem.split("\n")):
@@ -350,7 +414,7 @@ def slide_ex(tag, title, source, stem, options=None, answer=None, ans_label=None
             positions = [(Inches(0.6) + (ow + Inches(0.3)) * (i % 2),
                           y + (oh + Inches(0.16)) * (i // 2)) for i in range(len(options))]
         for i, (ox, oy) in enumerate(positions):
-            ob = box(s, ox, oy, ow, oh, fill=BLUE_L, line=None)
+            ob = box(s, ox, oy, ow, oh, fill=BLUE_L, line=None, name=f"auto:{i+1}|fade")
             para(ob.text_frame, options[i], size=17, color=DARK, first=True, space_after=0)
             if i == answer:
                 # 单击①:正确项绿框高亮 + ✓

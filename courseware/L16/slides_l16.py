@@ -17,15 +17,17 @@ toc = [("Part 1", "Words & Expressions——How+动词", "How系列8兄弟 / 频
        ("Part 2", "Cloze——完形填空(记叙文)", "认知词汇 + 解题步骤『看·定·读』+ 真题精讲10空", "期末占比 ★★★★"),
        ("Part 3", "Listening——听力(表格填词)", "听前预测法:看表头 → 猜词性 → 预写首字母", "期末占比 ★★★")]
 yy = y0 + Inches(0.25)
-for pno, t1, t2, star in toc:
-    b = box(s, Inches(0.6), yy, Inches(8.8), Inches(1.5), fill=BLUE_L, line=None)
+for ti, (pno, t1, t2, star) in enumerate(toc):
+    b = box(s, Inches(0.6), yy, Inches(8.8), Inches(1.5), fill=BLUE_L, line=None, name=f"auto:{ti}|fade")
     c = chip(s, Inches(0.85), yy + Inches(0.5), Inches(1.3), Inches(0.5), pno, fill=NAVY, size=16)
-    tf = txt(s, Inches(2.4), yy + Inches(0.15), Inches(6.8), Inches(1.3)).text_frame
+    c.name = f"auto:{ti}|fade"
+    tfs = txt(s, Inches(2.4), yy + Inches(0.15), Inches(6.8), Inches(1.3), name=f"auto:{ti}|fade")
+    tf = tfs.text_frame
     para(tf, t1, size=19, bold=True, color=NAVY, first=True, space_after=4)
     para(tf, t2, size=14, color=GRAY, space_after=4)
     para(tf, star, size=13, bold=True, color=ORANGE)
     yy += Inches(1.75)
-footer(s)
+footer(s); apply_click_animations(s)
 
 # P3 互动:课前热身快问快答(上讲回顾)
 s = new_slide()
@@ -35,7 +37,7 @@ qa = [("Q1  100万 / 数百万的人,英语怎么说?", "one **million** / **mil
       ("Q3  『六班』和『三楼』分别用基数词还是序数词?", "编号用基数词 **Class Six**;楼层用序数词 **the third floor**")]
 yy = y0 + Inches(0.3)
 for i, (q, a) in enumerate(qa):
-    qb = box(s, Inches(0.55), yy, Inches(8.9), Inches(0.62), fill=BLUE_L)
+    qb = box(s, Inches(0.55), yy, Inches(8.9), Inches(0.62), fill=BLUE_L, name=f"auto:{i}|fade")
     para(qb.text_frame, q, size=16, bold=True, color=NAVY, first=True, space_after=0)
     ab = box(s, Inches(1.1), yy + Inches(0.7), Inches(8.35), Inches(0.55), fill=GREEN_L, line=GREEN,
              name=f"click{i+1}|fade")
@@ -168,7 +170,7 @@ for i, (sc, ans) in enumerate(scenes):
     col, row = i % 2, i // 2
     x = Inches(0.55) + Inches(4.6) * col
     y = y0 + Inches(0.35) + Inches(1.5) * row
-    b = box(s, x, y, Inches(4.35), Inches(0.85), fill=BLUE_L)
+    b = box(s, x, y, Inches(4.35), Inches(0.85), fill=BLUE_L, name=f"auto:{i}|fade")
     para(b.text_frame, sc, size=16, bold=True, color=NAVY, first=True, space_after=0)
     a = box(s, x + Inches(2.3), y + Inches(0.55), Inches(2.0), Inches(0.5),
             fill=GREEN, name=f"click{row+1}|fade", radius=0.5)
@@ -255,22 +257,23 @@ yy = y0 + Inches(0.18)
 for i, (w, pct, cn) in enumerate(freq):
     wd = 7.2 - i * 0.72
     bar = box(s, Inches(0.7), yy, Inches(wd), Inches(0.55),
-              fill=RGBColor(0xFF, 0x7A + i * 0x12, 0x00 + i * 0x20) if i < 4 else BLUE_L)
+              fill=RGBColor(0xFF, 0x7A + i * 0x12, 0x00 + i * 0x20) if i < 4 else BLUE_L,
+              name=f"auto:{i}|wipe")
     para(bar.text_frame, f"**{w}**  {cn}", size=16, color=DARK if i >= 4 else WHITE, first=True,
          space_after=0, bold_color=DARK if i >= 4 else WHITE)
-    pc = txt(s, Inches(8.2), yy + Inches(0.06), Inches(1.3), Inches(0.45)).text_frame
+    pc = txt(s, Inches(8.2), yy + Inches(0.06), Inches(1.3), Inches(0.45), name=f"auto:{i}|fade").text_frame
     para(pc, pct, size=16, bold=True, color=ORANGE, first=True, space_after=0)
     yy += Inches(0.71)
-footer(s)
+footer(s); apply_click_animations(s)
 
 # P25 位置口诀 + 排排队
 s = new_slide()
 y0 = header(s, "知识讲解", "频度副词的位置 + 频率排排队", tag_fill=BLUE)
-b = box(s, Inches(0.5), y0 + Inches(0.15), Inches(9.0), Inches(1.25), fill=YELLOW_L, line=ORANGE)
+b = box(s, Inches(0.5), y0 + Inches(0.15), Inches(9.0), Inches(1.25), fill=YELLOW_L, line=ORANGE, name="auto:0|fade")
 tf = b.text_frame; tf.vertical_anchor = MSO_ANCHOR.MIDDLE
 para(tf, "位置口诀:**be 动词后,实义动词前**", size=22, bold=True, color=NAVY, first=True, space_after=6)
 para(tf, "He **is always** late.  /  She **usually gets** up at six.", size=17, color=DARK)
-b2 = box(s, Inches(0.5), y0 + Inches(1.65), Inches(9.0), Inches(1.05), fill=BLUE_L)
+b2 = box(s, Inches(0.5), y0 + Inches(1.65), Inches(9.0), Inches(1.05), fill=BLUE_L, name="auto:1|fade")
 tf2 = b2.text_frame; tf2.vertical_anchor = MSO_ANCHOR.MIDDLE
 para(tf2, "🎮 频率排排队:把打乱的7个词按频率从高到低排序!", size=17, bold=True, color=NAVY, first=True, space_after=4)
 para(tf2, "sometimes / never / always / often / seldom / usually / hardly ever", size=16, color=DARK)
@@ -319,24 +322,24 @@ slide_know("知识讲解", "must 一般疑问句的回答(★期末必考)", [
 # P30 need双重身份
 s = new_slide()
 y0 = header(s, "知识讲解", "need 的双重身份", tag_fill=BLUE)
-lb = box(s, Inches(0.5), y0 + Inches(0.2), Inches(4.4), Inches(3.6), fill=BLUE_L)
+lb = box(s, Inches(0.5), y0 + Inches(0.2), Inches(4.4), Inches(3.6), fill=BLUE_L, name="auto:0|fade")
 tf = lb.text_frame
 para(tf, "身份① 情态动词", size=18, bold=True, color=NAVY, first=True, space_after=8, align=PP_ALIGN.CENTER)
 para(tf, "need + **动词原形**", size=16, space_after=6)
 para(tf, "否定:need not(needn't) + V原", size=16, space_after=6)
 para(tf, "例:You **needn't come** early.", size=15, color=GRAY, space_after=6)
 para(tf, "(多用于否定句、疑问句)", size=13, color=GRAY)
-rb = box(s, Inches(5.1), y0 + Inches(0.2), Inches(4.4), Inches(3.6), fill=ORANGE_L)
+rb = box(s, Inches(5.1), y0 + Inches(0.2), Inches(4.4), Inches(3.6), fill=ORANGE_L, name="auto:1|fade")
 tf = rb.text_frame
 para(tf, "身份② 实义动词", size=18, bold=True, color=ORANGE, first=True, space_after=8, align=PP_ALIGN.CENTER)
 para(tf, "need **to do** sth.", size=16, space_after=6)
 para(tf, "否定:**don't / doesn't need** to do", size=16, space_after=6)
 para(tf, "例:He **needs to clean** the room.", size=15, color=GRAY, space_after=6)
 para(tf, "(有人称、时态变化)", size=13, color=GRAY)
-bb = box(s, Inches(0.5), y0 + Inches(4.0), Inches(9.0), Inches(0.8), fill=YELLOW_L, line=ORANGE)
+bb = box(s, Inches(0.5), y0 + Inches(4.0), Inches(9.0), Inches(0.8), fill=YELLOW_L, line=ORANGE, name="auto:2|fade")
 para(bb.text_frame, "辨别口诀:后面接 **to do** 的是实义动词;直接接**动词原形**的是情态动词!",
      size=16, bold=True, color=NAVY, first=True, space_after=0)
-footer(s)
+footer(s); apply_click_animations(s)
 
 # P31 经典例题5
 slide_ex("例题", "经典例题 5", "北京期中",
@@ -414,7 +417,7 @@ slide_know("考点解析", "考点④ need 否定式 + 彩蛋短语", [
 # P39 感官导图
 s = new_slide()
 y0 = header(s, "知识讲解", "感官系动词五兄弟 + adj.", tag_fill=BLUE)
-center = box(s, Inches(3.5), y0 + Inches(1.7), Inches(3.0), Inches(1.0), fill=NAVY)
+center = box(s, Inches(3.5), y0 + Inches(1.7), Inches(3.0), Inches(1.0), fill=NAVY, name="auto:0|fade")
 para(center.text_frame, "感官动词\n+ **形容词 adj.**", size=18, bold=True, color=WHITE, align=PP_ALIGN.CENTER,
      first=True, space_after=0, bold_color=ORANGE)
 sense = [("look 看起来", "It **looks** beautiful.", Inches(0.45), y0 + Inches(0.25)),
@@ -422,11 +425,11 @@ sense = [("look 看起来", "It **looks** beautiful.", Inches(0.45), y0 + Inches
          ("taste 尝起来", "It **tastes** good.", Inches(0.45), y0 + Inches(3.3)),
          ("smell 闻起来", "It **smells** nice.", Inches(5.9), y0 + Inches(3.3)),
          ("feel 摸起来", "It **feels** soft.", Inches(3.2), y0 + Inches(4.35))]
-for t, ex, x, y in sense:
-    b = box(s, x, y, Inches(3.6), Inches(0.95), fill=ORANGE_L, line=ORANGE)
+for si, (t, ex, x, y) in enumerate(sense):
+    b = box(s, x, y, Inches(3.6), Inches(0.95), fill=ORANGE_L, line=ORANGE, name=f"auto:{si+1}|fade")
     para(b.text_frame, f"**{t}**", size=17, first=True, space_after=2)
     para(b.text_frame, ex, size=14, color=GRAY)
-footer(s)
+footer(s); apply_click_animations(s)
 
 # P40 拓展
 slide_know("知识讲解", "拓展:smell like + n. / good vs well", [
@@ -486,14 +489,14 @@ levels = [("第1关", "how much 应用", "20分"), ("第2关", "how often+频度
 for i, (lv, t, sc) in enumerate(levels):
     x = Inches(0.45) + Inches(1.86) * i
     y = y0 + Inches(2.6) - Inches(0.45) * (i % 2)
-    b = box(s, x, y, Inches(1.7), Inches(1.5), fill=ORANGE if i % 2 == 0 else BLUE)
+    b = box(s, x, y, Inches(1.7), Inches(1.5), fill=ORANGE if i % 2 == 0 else BLUE, name=f"auto:{i}|fly")
     tf = b.text_frame
     para(tf, lv, size=17, bold=True, color=WHITE, align=PP_ALIGN.CENTER, first=True, space_after=3)
     para(tf, t, size=12, color=WHITE, align=PP_ALIGN.CENTER, space_after=3)
     para(tf, sc, size=12, bold=True, color=YELLOW, align=PP_ALIGN.CENTER)
 tfm = txt(s, Inches(0.55), y0 + Inches(4.5), Inches(8.9), Inches(0.5)).text_frame
 para(tfm, "🏆 通关拿满 100 分,冲!", size=18, bold=True, color=RED, align=PP_ALIGN.CENTER, first=True)
-footer(s)
+footer(s); apply_click_animations(s)
 
 # P46 练1
 slide_ex("例题", "闯关 · 第1关", "单元测试",
@@ -588,7 +591,7 @@ fills1 = [("1. The old songs can b___ b___ our happy memories.", "bring back(唤
           ("3. Grandma is cooking a p___ of chicken soup.", "pot(一锅鸡汤)")]
 yy = y0 + Inches(0.3)
 for i, (q, a) in enumerate(fills1):
-    qb = box(s, Inches(0.55), yy, Inches(8.9), Inches(0.6), fill=BLUE_L)
+    qb = box(s, Inches(0.55), yy, Inches(8.9), Inches(0.6), fill=BLUE_L, name=f"auto:{i}|fade")
     para(qb.text_frame, q, size=17, color=NAVY, first=True, space_after=0)
     ab = box(s, Inches(1.6), yy + Inches(0.68), Inches(7.85), Inches(0.5), fill=GREEN_L, line=GREEN,
              name=f"click{i+1}|fade")
@@ -604,7 +607,7 @@ fills2 = [("4. I can s___ the porridge. How nice!", "smell(闻到粥香)"),
           ("6. The dishes on the m___ are spicy. I want some p___ rice.", "menu; plain(菜单/清淡的白米饭)")]
 yy = y0 + Inches(0.3)
 for i, (q, a) in enumerate(fills2):
-    qb = box(s, Inches(0.55), yy, Inches(8.9), Inches(0.6), fill=BLUE_L)
+    qb = box(s, Inches(0.55), yy, Inches(8.9), Inches(0.6), fill=BLUE_L, name=f"auto:{i}|fade")
     para(qb.text_frame, q, size=17, color=NAVY, first=True, space_after=0)
     ab = box(s, Inches(1.6), yy + Inches(0.68), Inches(7.85), Inches(0.5), fill=GREEN_L, line=GREEN,
              name=f"click{i+1}|fade")
@@ -648,15 +651,15 @@ passage = ("The taste and smell of a   1   food often bring back our old memorie
            "On any Chinese   9  , you may find many famous dishes, but nothing can take the "
            "place of my mother's porridge. It always brings back the   10   old memories.")
 pb = box(s, Inches(0.5), y0 + Inches(0.12), Inches(9.0), Inches(4.1), fill=RGBColor(0xFB,0xFB,0xF6),
-         line=RGBColor(0xD9,0xD9,0xD9))
+         line=RGBColor(0xD9,0xD9,0xD9), name="auto:0|fade")
 tf = pb.text_frame; tf.vertical_anchor = MSO_ANCHOR.TOP
 para(tf, "Food and Memories", size=16, bold=True, color=NAVY, align=PP_ALIGN.CENTER, first=True, space_after=8)
 para(tf, passage, size=14.5, color=DARK, line_spacing=1.25)
-tm = box(s, Inches(7.5), y0 + Inches(4.4), Inches(2.0), Inches(0.6), fill=RED, radius=0.5)
+tm = box(s, Inches(7.5), y0 + Inches(4.4), Inches(2.0), Inches(0.6), fill=RED, radius=0.5, name="auto:2|fly")
 para(tm.text_frame, "⏱ 90 秒", size=18, bold=True, color=WHITE, align=PP_ALIGN.CENTER, first=True, space_after=0)
-tfm = txt(s, Inches(0.5), y0 + Inches(4.42), Inches(6.8), Inches(0.55)).text_frame
+tfm = txt(s, Inches(0.5), y0 + Inches(4.42), Inches(6.8), Inches(0.55), name="auto:1|fade").text_frame
 para(tfm, "任务:只通读,不作答——这篇讲了什么故事?体裁是什么?", size=14, bold=True, color=NAVY, first=True)
-footer(s)
+footer(s); apply_click_animations(s)
 
 # P61–P66 逐空精讲
 def cloze_slide(title, items, analysis):
@@ -665,7 +668,8 @@ def cloze_slide(title, items, analysis):
     y0 = header(s, "真题精讲", title, source="安徽期末", tag_fill=ORANGE)
     yy = y0 + Inches(0.15)
     for ci, (no, stem_t, opts, ans, note) in enumerate(items):
-        qb = box(s, Inches(0.5), yy, Inches(9.0), Inches(1.05), fill=WHITE, line=RGBColor(0xD9,0xD9,0xD9))
+        qb = box(s, Inches(0.5), yy, Inches(9.0), Inches(1.05), fill=WHITE, line=RGBColor(0xD9,0xD9,0xD9),
+                 name=f"auto:{ci}|fade")
         tf = qb.text_frame
         para(tf, f"第{no}空  " + stem_t, size=16, bold=True, color=NAVY, first=True, space_after=4)
         para(tf, opts, size=15, color=DARK)
@@ -762,13 +766,15 @@ slide_know("方法讲解", "听前预测法(拿到题先做三件事)", [
 # P70 听力表格题
 s = new_slide()
 y0 = header(s, "真题演练", "听短文,完成表格(每空一词)", source="安徽期中", tag_fill=ORANGE)
-ad = box(s, Inches(7.7), y0 + Inches(0.1), Inches(1.8), Inches(0.62), fill=NAVY, radius=0.5)
+ad = box(s, Inches(7.7), y0 + Inches(0.1), Inches(1.8), Inches(0.62), fill=NAVY, radius=0.5, name="auto:0|fade")
 para(ad.text_frame, "▶ 播放音频", size=15, bold=True, color=WHITE, align=PP_ALIGN.CENTER, first=True, space_after=0)
 tbl_rows = [["Healthy Eating Habits", ""],
             ["First", "1. ______ to have breakfast every day."],
             ["Second", "Don't eat too 2. ______ at night.\nEat 3. ______ food."],
             ["Third", "Don't have too much 4. ______.\nDrink 5. ______ water every day."]]
-gtbl = s.shapes.add_table(4, 2, Inches(0.7), y0 + Inches(0.9), Inches(8.6), Inches(3.6)).table
+gf = s.shapes.add_table(4, 2, Inches(0.7), y0 + Inches(0.9), Inches(8.6), Inches(3.6))
+gf.name = "auto:1|fade"
+gtbl = gf.table
 gtbl.columns[0].width = Inches(1.8); gtbl.columns[1].width = Inches(6.8)
 gtbl.rows[0].height = Inches(0.6); gtbl.rows[1].height = Inches(0.8)
 gtbl.rows[2].height = Inches(1.1); gtbl.rows[3].height = Inches(1.1)
@@ -783,15 +789,16 @@ for ri, (c1, c2) in enumerate(tbl_rows):
             rich(p, ln, size=16, bold=(ri == 0 or ci == 0), color=WHITE if ri == 0 else DARK)
         c.fill.solid(); c.fill.fore_color.rgb = NAVY if ri == 0 else (BLUE_L if ci == 0 else WHITE)
 gtbl.cell(0, 0).merge(gtbl.cell(0, 1))
-nb = box(s, Inches(0.7), y0 + Inches(4.7), Inches(8.6), Inches(0.6), fill=YELLOW_L, line=ORANGE)
+nb = box(s, Inches(0.7), y0 + Inches(4.7), Inches(8.6), Inches(0.6), fill=YELLOW_L, line=ORANGE, name="auto:2|fade")
 para(nb.text_frame, "⚠ 音频文件待插入(此处为占位符)——讲义未附听力原文", size=14, bold=True, color=RED,
      first=True, space_after=0)
-footer(s)
+footer(s); apply_click_animations(s)
 
 # P71 听力答案核对(标黄待校对)
 s = new_slide()
 y0 = header(s, "答案核对", "听力答案(逐空核对)", source="安徽期中", tag_fill=ORANGE)
-wb = box(s, Inches(0.5), y0 + Inches(0.1), Inches(9.0), Inches(0.75), fill=YELLOW, line=RED, line_w=2)
+wb = box(s, Inches(0.5), y0 + Inches(0.1), Inches(9.0), Inches(0.75), fill=YELLOW, line=RED, line_w=2,
+         name="auto:0|fade")
 para(wb.text_frame, "⚠ 听力原文/音频缺失:以下为按常见原文预填的**参考答案**,使用前请老师对照音频确认!",
      size=14, bold=True, color=RED, first=True, space_after=0, bold_color=RED)
 answers = [("1", "Try", "句首动词,大写 T!"), ("2", "late", "don't eat too late 别吃太晚"),
@@ -799,7 +806,7 @@ answers = [("1", "Try", "句首动词,大写 T!"), ("2", "late", "don't eat too 
            ("5", "enough", "drink enough water 喝足量的水")]
 yy = y0 + Inches(1.05)
 for i, (no, ans, note) in enumerate(answers):
-    qb = box(s, Inches(0.7), yy, Inches(2.0), Inches(0.6), fill=BLUE_L)
+    qb = box(s, Inches(0.7), yy, Inches(2.0), Inches(0.6), fill=BLUE_L, name=f"auto:{i+1}|fade")
     para(qb.text_frame, f"第 {no} 空", size=16, bold=True, color=NAVY, align=PP_ALIGN.CENTER, first=True, space_after=0)
     ab = box(s, Inches(2.9), yy, Inches(6.4), Inches(0.6), fill=YELLOW_L, line=ORANGE, name=f"click{i+1}|fade")
     para(ab.text_frame, f"**{ans}**   {note}", size=16, color=DARK, first=True, space_after=0)
@@ -869,13 +876,13 @@ for i, (no, t, mins) in enumerate(hw):
     col, row = i % 2, i // 2
     x = Inches(0.5) + Inches(4.65) * col
     y = yy + Inches(0.92) * row
-    b = box(s, x, y, Inches(4.45), Inches(0.78), fill=GREEN_L if i % 2 == 0 else BLUE_L)
+    b = box(s, x, y, Inches(4.45), Inches(0.78), fill=GREEN_L if i % 2 == 0 else BLUE_L, name=f"auto:{i}|fade")
     tf = b.text_frame
     para(tf, f"**{no}**  {t}", size=13.5, color=DARK, first=True, space_after=2, bold_color=GREEN)
     para(tf, f"预计 {mins}", size=11, color=GRAY)
 nb = txt(s, Inches(0.5), yy + Inches(4.72), Inches(9.0), Inches(0.5)).text_frame
 para(nb, "📌 答案下讲核对——先自己做,不许偷看答案哦!", size=15, bold=True, color=RED, first=True)
-footer(s)
+footer(s); apply_click_animations(s)
 
 # P77 结束页
 slide_end()
