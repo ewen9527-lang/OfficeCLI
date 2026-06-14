@@ -46,46 +46,75 @@ J.box([[B("一句话记牢："), "做主语用", O("主格"), "，作宾语/介�
 
 # ---- Part 1 词汇 ----
 J.part_header("Part 1  Vocabulary", "新课标词汇")
-J.body([("本讲核心词围绕", {}), T("「友谊·品格」"),
-        ("话题展开，配合阅读篇章记忆，效果翻倍。先看词、再做拼读拆记，最后回到例句。", {})])
+J.body([("核心词选自本讲", {}), T("「友谊·品格」"),
+        ("阅读篇章，优先 ", {}), O("7 年级下学期常考高频词"),
+        ("（已避开练习册同课词），按 ", {}), O("音 · 形 · 意 · 用 · 拓"), (" 五维记忆。", {})])
 
-J.vocab_entry(1, "patient", "/ˈpeɪʃnt/", "adj. 有耐心的；n. 病人",
-    lines=[[O("【短语】"), "be patient with sb. ", ("对某人有耐心", {})],
-           [O("【拓展】"), "patience ", ("n. 耐心  →  ", {}), "impatient ", ("adj. 没耐心的", {})]],
-    examples=[[O("【例句】"), EN("The doctor is very patient with his patients.")],
-              [("      医生对他的病人很有耐心。", {})]],
-    split=(["/peɪ/", "/ʃnt/"], ["pa", "tient"]))
+J.core_word(
+    1, "friendship", "7下高频 · 篇章词",
+    "/ˈfrendʃɪp/",
+    [("friend", {'latin': EN_BODY, 'bold': True}), ("（n. 朋友）+ ", {}),
+     ("-ship", {'latin': EN_BODY, 'bold': True}), ("（名词后缀，表 “状态、关系”）", {})],
+    "n. 友谊；友情",
+    [("build / keep a friendship ", {'latin': EN_BODY}), ("建立 / 维持友谊；", {}),
+     ("friendship between A and B ", {'latin': EN_BODY}), ("A 与 B 之间的友谊", {})],
+    tuo_table=[
+        [("friend", {'latin': EN_BODY}), "—", "n.", "朋友"],
+        [("friendly", {'latin': EN_BODY}), "friend + ly", "adj.", "友好的"],
+        [("friendship", {'latin': EN_BODY}), "friend + ship", "n.", "友谊"]])
 
-J.vocab_entry(2, "real", "/ˈriːəl/", "adj. 真实的；实际存在的",
-    lines=[[O("【短语】"), "the real world ", ("现实世界  |  ", {}), "in real life ", ("在现实生活中", {})],
-           [O("【拓展】"), "really ", ("adv. 真地；确实  |  ", {}), "reality ", ("n. 现实", {})]],
-    examples=[[O("【例句】"), EN("She was really happy to find a real diamond ring.")],
-              [("      找到一枚真钻戒指，她真的很开心。", {})]],
-    split=(["/r/", "/iːə/", "/l/"], ["r", "ea", "l"]))
+J.core_word(
+    2, "patient", "7下高频 · 原讲义词",
+    "/ˈpeɪʃnt/",
+    [("pati", {'latin': EN_BODY, 'bold': True}), ("（忍耐）+ ", {}),
+     ("-ent", {'latin': EN_BODY, 'bold': True}), ("（形容词后缀）", {})],
+    "adj. 有耐心的　n. 病人",
+    [("be patient with sb. ", {'latin': EN_BODY}), ("对某人有耐心", {})],
+    tuo_table=[
+        [("patient", {'latin': EN_BODY}), "—", "adj./n.", "有耐心的；病人"],
+        [("patience", {'latin': EN_BODY}), "patient → ce", "n.", "耐心"],
+        [("impatient", {'latin': EN_BODY}), "im- + patient", "adj.", "无耐心的"]])
 
-J.vocab_entry(3, "honest", "/ˈɒnɪst/", "adj. 诚实的；正直的",
-    lines=[[O("【短语】"), "an honest boy ", ("一个诚实的男孩  ", {}), R("（h 不发音，用 an！）")],
-           [O("【拓展】"), "honestly ", ("adv. 诚实地  |  ", {}), "honesty ", ("n. 诚实", {})]],
-    examples=[[O("【例句】"), EN("To be honest, I don't like the colour.")],
-              [("      说实话，我不喜欢这个颜色。", {})]])
+J.core_word(
+    3, "real", "7下高频 · 原讲义词",
+    "/ˈriːəl/",
+    [("real", {'latin': EN_BODY, 'bold': True}), ("（真实）—— 注意 ", {}), R("real ≠ really"), ("（词性不同）", {})],
+    "adj. 真实的；实际存在的",
+    [("in real life ", {'latin': EN_BODY}), ("在现实生活中；", {}),
+     ("the real world ", {'latin': EN_BODY}), ("现实世界", {})],
+    tuo_table=[
+        [("real", {'latin': EN_BODY}), "—", "adj.", "真实的"],
+        [("really", {'latin': EN_BODY}), "real + ly", "adv.", "真正地；确实"],
+        [("reality", {'latin': EN_BODY}), "real + ity", "n.", "现实"]])
 
-J.vocab_entry(4, "share", "/ʃeə(r)/", "v. 分享；分担   n. 份额",
-    lines=[[O("【短语】"), "share sth. with sb. ", ("与某人分享某物", {})]],
-    examples=[[O("【例句】"), EN("Good friends share their lives with each other.")],
-              [("      好朋友彼此分享生活。", {})]])
+J.core_word(
+    4, "kind", "7下高频 · 一词多义",
+    "/kaɪnd/",
+    [("kind", {'latin': EN_BODY, 'bold': True}), ("一词多义：", {}), R("善良 / 种类"), ("，靠语境区分", {})],
+    "adj. 善良的；友好的　n. 种类",
+    [("be kind to sb. ", {'latin': EN_BODY}), ("对某人友好；", {}),
+     ("a kind of ", {'latin': EN_BODY}), ("一种；", {}),
+     ("all kinds of ", {'latin': EN_BODY}), ("各种各样的", {})],
+    tuo_table=[
+        [("kind", {'latin': EN_BODY}), "—", "adj./n.", "善良的；种类"],
+        [("kindness", {'latin': EN_BODY}), "kind + ness", "n.", "善良；好意"],
+        [("kindly", {'latin': EN_BODY}), "kind + ly", "adv.", "友善地"]])
 
-J.vocab_entry(5, "plant", "/plɑːnt/", "v. 种植   n. 植物",
-    lines=[[O("【拓展】"), "seed ", ("n. 种子  |  ", {}), "look after ", ("照顾", {})]],
-    examples=[[O("【例句】"), EN("Making a friend is just like planting a tree.")],
-              [("      交朋友就像种树一样。", {})]])
+J.core_word(
+    5, "important", "7下高频 · 篇章词",
+    "/ɪmˈpɔːtnt/",
+    [("import", {'latin': EN_BODY, 'bold': True}), ("（重要）+ ", {}),
+     ("-ant", {'latin': EN_BODY, 'bold': True}), ("（形容词后缀）", {})],
+    "adj. 重要的",
+    [("be important to sb. ", {'latin': EN_BODY}), ("对某人重要；", {}),
+     ("It's important to do sth. ", {'latin': EN_BODY}), ("做某事很重要", {})],
+    tuo_table=[
+        [("important", {'latin': EN_BODY}), "—", "adj.", "重要的"],
+        [("importance", {'latin': EN_BODY}), "import + ance", "n.", "重要性"],
+        [("unimportant", {'latin': EN_BODY}), "un- + important", "adj.", "不重要的"]])
 
-J.vocab_entry(6, "fight", "/faɪt/", "n. & v. 打架；争吵（过去式 fought）",
-    lines=[[O("【短语】"), "have a fight with sb. ", ("与某人吵架", {})]],
-    examples=[[O("【例句】"), EN("Even the best friends sometimes have fights.")],
-              [("      即使最好的朋友有时也会吵架。", {})]])
-
-J.box([[B("词汇自测（口头快答）："), "对……有耐心 → ____ ；现实生活 → ____ ；",
-        "与某人分享某物 → ____ ；照顾 → ____ 。"]],
+J.box([[B("词汇自测（口头快答）："), "友谊 → ____ ；对某人有耐心 → ____ ；",
+        "在现实生活中 → ____ ；对某人友好 → ____ ；对某人重要 → ____ 。"]],
       kind="teal", title="3 分钟过词关")
 
 # ---- Part 2 冠词 ----
@@ -244,7 +273,7 @@ J.blank_line(1)
 
 J.answer_key("第 1 讲 · 参考答案与解析", [
     [B("课前热身："), "1. B（teach 后接宾格 us；主语用主格 She）  2. B（these 后无名词，用名物代 theirs / yours）"],
-    [B("词汇自测："), "be patient with sb. / in real life / share sth. with sb. / look after"],
+    [B("词汇自测："), "friendship / be patient with sb. / in real life / be kind to sb. / be important to sb."],
     [B("不定冠词例题："), "浙江期中 ", O("C. an; an"), "（字母 m 读 /em/、r 读 /ɑː/，均以元音音素开头）；",
      "黑龙江期中 ", O("C. an; a"), "（an uncle /ʌ/ 元音；字母 u 读 /juː/ 辅音，用 a）。"],
     [B("定冠词例题："), "① The（上文提到的那部电影，特指）  ② the（乐器前用 the）  ③ The（the Greens 一家人）。"],
@@ -280,25 +309,71 @@ J.box([[B("一句话："), "问 “这/那是什么” 用 this/that，答语用
 
 # ---- Part 1 词汇 ----
 J.part_header("Part 1  Vocabulary", "新课标词汇")
-J.body([("本讲核心词来自完形篇章", {}), T("「亲情·陪伴」"), ("，边记词边读语境，效率更高。", {})])
-J.vocab_entry(1, "gift", "/ɡɪft/", "n. 礼物；天赋",
-    lines=[[O("【短语】"), "have a gift for… ", ("有……的天赋", {})]],
-    examples=[[O("【例句】"), EN("She has a great gift for music.")], [("      她很有音乐天赋。", {})]])
-J.vocab_entry(2, "dial", "/ˈdaɪəl/", "v. 拨（号）   n. 表盘",
-    examples=[[O("【例句】"), EN("I'm going to dial the number.")], [("      我要拨这个号码。", {})]])
-J.vocab_entry(3, "enough", "/ɪˈnʌf/", "adj. 足够的   adv. 足够地",
-    lines=[[O("【辨析】"), "enough 修饰名词放 ", R("名词前"), "，修饰形/副放 ", R("形/副后"),
-            "：enough time / good enough。"]],
-    examples=[[O("【例句】"), EN("It was good enough for all.")], [("      这对所有人来说都足够好了。", {})]])
-J.vocab_entry(4, "member", "/ˈmembə(r)/", "n. 成员",
-    lines=[[O("【短语】"), "a member of… ", ("……的一员", {})]],
-    examples=[[O("【例句】"), EN("How much does it cost to become a member?")], [("      成为会员需要多少钱？", {})]])
-J.vocab_entry(5, "quick", "/kwɪk/", "adj. 快的",
-    lines=[[O("【拓展】"), "quickly ", ("adv. 快地（修饰动词）", {})]],
-    examples=[[O("【例句】"), EN("I got away as quickly as I could.")], [("      我尽可能快地离开了。", {})]])
-J.vocab_entry(6, "answer", "/ˈɑːnsə(r)/", "v. 回答；接（电话）   n. 答案",
-    lines=[[O("【短语】"), "answer the phone ", ("接电话  |  ", {}), "the answer to… ", ("……的答案", {})]])
-J.box([[B("词汇自测："), "有……的天赋 → ____ ；……的一员 → ____ ；接电话 → ____ ；足够的时间 → ____ 。"]],
+J.body([("核心词选自本讲", {}), T("「亲情·陪伴」"),
+        ("完形篇章，优先 ", {}), O("7 年级下学期常考高频词"),
+        ("（已避开练习册同课词），按 ", {}), O("音 · 形 · 意 · 用 · 拓"), (" 五维记忆。", {})])
+
+J.core_word(
+    1, "gift", "7下高频 · 一词多义",
+    "/ɡɪft/",
+    [("gift", {'latin': EN_BODY, 'bold': True}), ("一词多义：", {}), R("礼物 / 天赋")],
+    "n. 礼物；天赋",
+    [("have a gift for sth. ", {'latin': EN_BODY}), ("有……的天赋；", {}),
+     ("a gift from sb. ", {'latin': EN_BODY}), ("某人送的礼物", {})],
+    tuo_table=[
+        [("gift", {'latin': EN_BODY}), "—", "n.", "礼物；天赋"],
+        [("gifted", {'latin': EN_BODY}), "gift + ed", "adj.", "有天赋的"],
+        [("present", {'latin': EN_BODY}), "（近义词）", "n.", "礼物"]])
+
+J.core_word(
+    2, "member", "7下高频 · 篇章词",
+    "/ˈmembə(r)/",
+    [("mem", {'latin': EN_BODY, 'bold': True}), ("（谐音 “memo”）+ ", {}),
+     ("-ber", {'latin': EN_BODY, 'bold': True}), ("，记 “成员”", {})],
+    "n. 成员；会员",
+    [("a member of… ", {'latin': EN_BODY}), ("……的一员；", {}),
+     ("family members ", {'latin': EN_BODY}), ("家庭成员", {})],
+    tuo_table=[
+        [("member", {'latin': EN_BODY}), "—", "n.", "成员"],
+        [("membership", {'latin': EN_BODY}), "member + ship", "n.", "会员资格"]])
+
+J.core_word(
+    3, "enough", "7下高频 · 易错语序",
+    "/ɪˈnʌf/",
+    [("e-nough", {'latin': EN_BODY, 'bold': True}), ("，注意 ", {}), R("gh 不发音")],
+    "adj. & adv. 足够的（地）",
+    [R("enough"), (" + 名词（", {}), ("enough time", {'latin': EN_BODY}), ("）；", {}),
+     ("形 / 副 + ", {}), R("enough"), ("（", {}), ("good enough", {'latin': EN_BODY}),
+     ("）；", {}), ("… enough to do ", {'latin': EN_BODY}), ("足够……能做某事", {})],
+    tuo=[("反义：", {}), ("not enough ", {'latin': EN_BODY}), ("不够；", {}),
+         ("too… to do ", {'latin': EN_BODY}), ("太……而不能", {})])
+
+J.core_word(
+    4, "quick", "7下高频 · 形副转换",
+    "/kwɪk/",
+    [("quick", {'latin': EN_BODY, 'bold': True}), ("（adj.）+ ", {}),
+     ("-ly", {'latin': EN_BODY, 'bold': True}), (" → ", {}), ("quickly", {'latin': EN_BODY}), ("（adv.）", {})],
+    "adj. 快的　（quickly adv. 快地）",
+    [("be quick ", {'latin': EN_BODY}), ("快点；", {}),
+     ("have a quick look ", {'latin': EN_BODY}), ("快速看一眼", {})],
+    tuo_table=[
+        [("quick", {'latin': EN_BODY}), "—", "adj.", "快的（修饰名词）"],
+        [("quickly", {'latin': EN_BODY}), "quick + ly", "adv.", "快地（修饰动词）"],
+        [("slow", {'latin': EN_BODY}), "（反义词）", "adj.", "慢的"]])
+
+J.core_word(
+    5, "dial", "7下高频 · 篇章词",
+    "/ˈdaɪəl/",
+    [("dial", {'latin': EN_BODY, 'bold': True}), ("（拨号 / 表盘）—— ", {}),
+     ("di", {'latin': EN_BODY}), ("（地）+ ", {}), ("al", {'latin': EN_BODY}), ("，拨号要 “按”", {})],
+    "v. 拨（电话号码）　n. 表盘；刻度盘",
+    [("dial the number ", {'latin': EN_BODY}), ("拨号码；", {}),
+     ("dial 110 ", {'latin': EN_BODY}), ("拨打 110", {})],
+    tuo=[("redial ", {'latin': EN_BODY, 'bold': True}), ("（re- + dial）v. 重拨；", {}),
+         ("call ", {'latin': EN_BODY, 'bold': True}), ("（近义）v. 打电话", {})])
+
+J.box([[B("词汇自测："), "有……的天赋 → ____ ；……的一员 → ____ ；足够的时间 → ____ ；",
+        "快速看一眼 → ____ ；拨号码 → ____ 。"]],
       kind="teal", title="3 分钟过词关")
 
 # ---- Part 2 名词辨析 ----
@@ -409,7 +484,7 @@ J.blank_line(1)
 
 J.answer_key("第 2 讲 · 参考答案与解析", [
     [B("课前热身："), "1. these（animals 复数，近指用 these）  2. D（these/those 作主语，答语用 They）"],
-    [B("词汇自测："), "have a gift for / a member of / answer the phone / enough time"],
+    [B("词汇自测："), "have a gift for sth. / a member of / enough time / have a quick look / dial the number"],
     [B("名词例题："), "山东期中 ", O("rooms"), "（各自所有，谓语 are，用复数）；江苏期中 ", O("endless"),
      "（end+less 变形容词；homework 不可数）。"],
     [B("Part 3 完形："), "1. C（buy a gift）  2. D（a gift 复现）  3. D（moon cakes 提示中秋）  4. C（watch the moon）"],

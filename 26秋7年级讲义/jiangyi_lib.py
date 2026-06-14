@@ -426,7 +426,7 @@ class Jiangyi:
                 p = cell.paragraphs[0]
                 p.paragraph_format.space_after = Pt(1); p.paragraph_format.space_before = Pt(1)
                 p.alignment = WD_ALIGN_PARAGRAPH.CENTER if ncol > 2 else WD_ALIGN_PARAGRAPH.LEFT
-                if isinstance(val, str):
+                if isinstance(val, str) or isinstance(val, tuple):
                     val = [val]
                 for seg in val:
                     if isinstance(seg, str):
@@ -439,6 +439,48 @@ class Jiangyi:
                                       color=opts.get('color', INK), latin=opts.get('latin', EN_BODY), ea=opts.get('ea', EA_BODY))
         self._p(space_after=3)
         return tbl
+
+    def core_word(self, idx, word, tag, yin, xing, yi, yong, tuo_table=None, tuo=None):
+        """【26暑】8A「核心词汇」形式：序号+词+(出处) → ★音/★形/★意/★用 + 拓展表
+        yin/xing/yi/yong/tuo 均可为字符串或 segments 列表。"""
+        # 标题行
+        p = self._p(space_before=6, space_after=2, keep=True)
+        rn = p.add_run(f"{idx}. ")
+        _set_run_font(rn, size=11.5, bold=True, color=INK)
+        rw = p.add_run(word + "  ")
+        _set_run_font(rw, size=12, bold=True, color=ORANGE, latin=EN_BODY, ea=EA_HEAD)
+        if tag:
+            rt = p.add_run(f"（{tag}）")
+            _set_run_font(rt, size=9, color=GREY, ea=EA_BODY)
+
+        def star_line(label, content):
+            pp = self._p(space_after=2, indent=0.4, line=1.25)
+            rs = pp.add_run("★")
+            _set_run_font(rs, size=10.5, bold=True, color=ORANGE)
+            rl = pp.add_run(f"{label}：")
+            _set_run_font(rl, size=10.5, bold=True, color=TEAL, ea=EA_HEAD)
+            if isinstance(content, str):
+                content = [content]
+            for seg in content:
+                if isinstance(seg, str):
+                    r = pp.add_run(seg)
+                    _set_run_font(r, size=10.5, ea=EA_BODY)
+                else:
+                    txt, opts = seg
+                    r = pp.add_run(txt)
+                    _set_run_font(r, size=opts.get('size', 10.5), bold=opts.get('bold', False),
+                                  color=opts.get('color', INK), latin=opts.get('latin', EN_BODY),
+                                  ea=opts.get('ea', EA_BODY))
+
+        star_line("音", [(yin, {'latin': EN_BODY, 'color': TEAL})] if isinstance(yin, str) else yin)
+        star_line("形", xing)
+        star_line("意", yi)
+        star_line("用", yong)
+        if tuo:
+            star_line("拓", tuo)
+        if tuo_table:
+            self.table(["单词", "构成", "词性", "含义"], tuo_table,
+                       widths=[3.6, 4.6, 2.6, 5.6], zebra=True, header_fill=TEAL_MID)
 
     def vocab_entry(self, idx, word, phon, pos_cn, lines=None, examples=None, split=None):
         """新课标词汇词条：序号+单词(橙)+音标+词性中文；下挂短语/拓展/例句/拼读拆记"""
