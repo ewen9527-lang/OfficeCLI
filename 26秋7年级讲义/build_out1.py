@@ -271,6 +271,13 @@ J.body([("6.【广西月考】Remember ______（close）the door after school, T
 J.body([("7.【单元测试】（翻译）箱子里有一个篮球。", {})], size=10.5)
 J.blank_line(1)
 
+J.tapescript([
+    "1. W: Excuse me, where shall we meet tomorrow morning?  M: Let's meet at the school gate at eight.",
+    "2. M: How much is the ticket for each student?  W: It's ten yuan.",
+    "3. W: What time will the film begin?  M: At three o'clock. Don't be late.",
+    "4. W: What do you want to be when you grow up, Jack?  M: I want to be a teacher, like my mother.",
+    "5. M: How will we go to the park?  W: It's a little far. Let's go by bus.",
+])
 J.answer_key("第 1 讲 · 参考答案与解析", [
     [B("课前热身："), "1. B（teach 后接宾格 us；主语用主格 She）  2. B（these 后无名词，用名物代 theirs / yours）"],
     [B("词汇自测："), "friendship / be patient with sb. / in real life / be kind to sb. / be important to sb."],
@@ -482,6 +489,16 @@ J.body([("5.【江苏期中】I am so tired because I always have ______（end�
 J.body([("6.【广东期中】（连词成句）to, please, carefully, me, listen", {})], size=10.5)
 J.blank_line(1)
 
+J.tapescript([
+    "W: The Mid-Autumn Festival is coming. What shall we do, Dad?",
+    "M: Let's visit your grandparents. They live in the countryside.",
+    "W: Great! When shall we go? On Saturday?",
+    "M: I have to work on Saturday. Let's go on Sunday.",
+    "W: How will we get there? By train?",
+    "M: No, by car. It's faster. And we should buy some moon cakes for them.",
+    "W: Good idea — they love moon cakes! We'll leave early in the morning, right?",
+    "M: Yes. Please remind me.  W: OK, Dad, please get up early and don't oversleep!",
+])
 J.answer_key("第 2 讲 · 参考答案与解析", [
     [B("课前热身："), "1. these（animals 复数，近指用 these）  2. D（these/those 作主语，答语用 They）"],
     [B("词汇自测："), "have a gift for sth. / a member of / enough time / have a quick look / dial the number"],
@@ -609,6 +626,14 @@ J.body([B("二、书面表达")], space_before=4)
 J.body([("假如你是张华，请以 “My Family” 为题，用 80 词左右介绍你的家庭（成员、外貌、爱好），并表达你对家人的爱。", {})], size=10.5)
 J.blank_line(3)
 
+J.tapescript([
+    "Hello, everyone. Let me tell you something about my family. There are four people in my family: "
+    "my father, my mother, my elder sister and I.",
+    "My father is a bus driver. He is tall and he likes listening to music. My mother is a nurse. She "
+    "has long curly hair and she is good at cooking. My sister is a middle school student; she likes "
+    "singing and dancing.",
+    "I love my family very much. We are very happy together. That's all. Thank you.",
+])
 J.answer_key("第 3 讲 · 参考答案与解析", [
     [B("Part 2 语法填空："), "见上方解析框。"],
     [B("Part 3 听力（参考答案）："), "1. A  2. B  3. B  4. B  5. A（以实际录音为准）。"],

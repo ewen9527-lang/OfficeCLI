@@ -97,6 +97,13 @@ J.part_header("Homework", "课后巩固")
 J.body([B("书面表达：")])
 J.body([("请以 “How to Keep Healthy” 为题，用 80 词左右给同学提出 3 条保持健康的建议。", {})], size=10.5)
 J.blank_line(3)
+J.tapescript([
+    "Hello, everyone. Today let me tell you how to keep healthy. First, we should have a healthy diet. "
+    "Eat more fruit and vegetables, and don't eat too much sugar. Second, do more exercise — for "
+    "example, running is a good way to keep fit. Third, go to bed early and get up early; don't stay "
+    "up late. If we keep these good habits, we will stay healthy. Remember: health is the greatest "
+    "wealth!",
+])
 J.answer_key("第 16 讲 · 参考答案与解析", [
     [B("Part 2 补全对话："), "1. B（What's wrong with you?）  2. A（When do you usually go to bed?）  3. D（Why don't you go to bed earlier?）  4. E（How about making a study plan?）  5. C（You're welcome.）。多余项：无（5 空对应 5 句）。"],
     [B("Part 3 听力（参考答案）："), "1. A  2. B  3. A  4. A  5. B（以实际录音为准）。"],

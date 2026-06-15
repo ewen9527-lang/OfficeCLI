@@ -97,6 +97,12 @@ J.part_header("Homework", "课后巩固")
 J.body([B("书面表达：")])
 J.body([("假如你是张华，写一封 40 词以上的邮件，申请加入学校的 “Reading Club”，说明理由和期待的活动。", {})], size=10.5)
 J.blank_line(3)
+J.tapescript([
+    "Good afternoon, everyone. Welcome to our English club! Our club meets every Friday afternoon in "
+    "Room 301. In the club, we do many interesting things: we write English dialogues, make new "
+    "friends, and watch English movies together. It's a great way to improve your English and have "
+    "fun. If you want to join us, please send an email to our teacher. We look forward to seeing you!",
+])
 J.answer_key("第 10 讲 · 参考答案与解析", [
     [B("Part 2 选词填空："), "(1) lonely  (2) celebrate  (3) tea  (4) knife  (5) themselves"],
     ["　　解析：(1) feel + adj.，sad and lonely；(2) to celebrate（动词原形）；(3) afternoon tea 下午茶；(4) cut… with a knife；(5) enjoy oneself → enjoyed themselves。"],
@@ -228,6 +234,13 @@ J.body([("1. Listen! Someone ______（sing）in the next room.", {})], size=10.5
 J.body([("2. My father usually ______（watch）the news after dinner.", {})], size=10.5)
 J.body([("3. Too much sugar ______（affect）our health.（用单三）", {})], size=10.5)
 J.blank_line(1)
+J.tapescript([
+    "1. W: Where is Tom?  M: Look! He is playing football on the playground now.",
+    "2. M: How often do you exercise, Lucy?  W: I exercise every day to keep healthy.",
+    "3. W: Doctor, what should I do?  M: You should eat less sugar.",
+    "4. M: What are the students doing in the garden?  W: They are growing their own food.",
+    "5. W: What do you usually have for breakfast?  M: I usually have some fruit. It's healthy.",
+])
 J.answer_key("第 11 讲 · 参考答案与解析", [
     [B("课前热身："), "Does; go（一般现在时，单三疑问用 Does + 原形）。"],
     [B("词汇自测："), "affect our health / full of energy / do exercise / a scientist / replace A with B"],
@@ -368,6 +381,14 @@ J.body([("1. The Yangtze River is ______（long）than the Yellow River.", {})],
 J.body([("2. This is ______（good）film I have ever seen.（最高级）", {})], size=10.5)
 J.body([("3. He runs ______（fast）than any other student in his class.", {})], size=10.5)
 J.blank_line(1)
+J.tapescript([
+    "W: Tom is taller than Jack, isn't he?",
+    "M: Yes, Tom is the tallest boy in our class.",
+    "W: By the way, which subject do you like best?",
+    "M: I like English best, but I'm a little worried about tomorrow's English test.",
+    "W: Don't worry. I think the best way to learn English is to speak it more.",
+    "M: You're right. I'll practise speaking every morning.  W: Me too. I always get up early — it's a good habit.",
+])
 J.answer_key("第 12 讲 · 参考答案与解析", [
     [B("课前热身："), "taller；tallest（两者比较用比较级，三者用最高级 the tallest）。"],
     [B("词汇自测："), "notice sb. do sth. / be surprised at / follow the rules / get up early / have an English lesson"],

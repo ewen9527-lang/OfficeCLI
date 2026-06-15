@@ -100,6 +100,13 @@ J.part_header("Homework", "课后巩固")
 J.body([B("书面表达：")])
 J.body([("请以 “My Favourite Festival” 为题，用 80 词左右介绍你最喜欢的节日（参照本讲三要点与亮点短语）。", {})], size=10.5)
 J.blank_line(3)
+J.tapescript([
+    "Hello, everyone. Today I want to tell you about my favourite festival, the Mid-Autumn Festival. "
+    "It usually comes in September or October. On that day, the moon is round and bright. Family "
+    "members try their best to come back home and get together. We have a big dinner and eat "
+    "mooncakes. We also enjoy the full moon in the open air. I feel very happy because my whole family "
+    "is together. Thank you.",
+])
 J.answer_key("第 13 讲 · 参考答案与解析", [
     [B("Part 2 任务型阅读："), "1. It falls on the 15th day of the eighth lunar month (in September or October).  2. Mooncakes (are).  3. F（圆的 round，不是 square）。"],
     ["　　4. family; friendship  5. 月亮又圆又亮。"],
@@ -222,6 +229,13 @@ J.body([("1. ______（not）be late for school again, Tom!", {})], size=10.5)
 J.body([("2. Work hard, ______ you will pass the exam.（and / or）", {})], size=10.5)
 J.body([("3. We should ______（improve）our English by reading more.", {})], size=10.5)
 J.blank_line(1)
+J.tapescript([
+    "1. W: Be quiet, please! The exam is starting.  M: Sorry, Miss Li.",
+    "2. W: Don't be late for school again, Tom!  M: OK, Mum. I'll get up earlier.",
+    "3. M: How can I learn English well?  W: Develop a good habit of reading every day.",
+    "4. W: What should I do to improve my English in class?  M: Listen carefully and take notes.",
+    "5. W: I have so much homework. I don't know where to start.  M: Make a plan and use your time well.",
+])
 J.answer_key("第 14 讲 · 参考答案与解析", [
     [B("课前热身："), "Be（祈使句用动词原形 Be careful）。"],
     [B("词汇自测："), "follow / obey the rules / improve one's English / make a mistake / a good habit / plan to do sth."],
@@ -358,6 +372,13 @@ J.body([("1. ______ ______ books are there on the desk?（提问数量，可数�
 J.body([("2. He is late because he missed the bus.（对画线部分提问）", {})], size=10.5)
 J.body([("3. I ______（enjoy）reading English stories at the weekend.", {})], size=10.5)
 J.blank_line(1)
+J.tapescript([
+    "1. W: What do you do at the weekend, Mike?  M: I usually visit my grandparents with my parents.",
+    "2. M: How often do you play basketball, Lily?  W: Twice a week, on Wednesday and Saturday.",
+    "3. W: Where do you have lunch on Sunday?  M: We have lunch at home. My mother cooks for us.",
+    "4. M: How much is the ticket to the museum?  W: It's twenty yuan.",
+    "5. W: Why do you like the weekend so much?  M: Because I can relax and do the things I like.",
+])
 J.answer_key("第 15 讲 · 参考答案与解析", [
     [B("课前热身："), "What（What is the weather like? = How is the weather?）。"],
     [B("词汇自测："), "at / on the weekend / visit one's grandparents / how often / get together / enjoy doing sth."],

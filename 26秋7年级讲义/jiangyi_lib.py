@@ -507,6 +507,16 @@ class Jiangyi:
         self.box([[(it, {'size': 9.5, 'ea': EA_BODY})] if isinstance(it, str) else it for it in items],
                  kind='pale', title=title)
 
+    def tapescript(self, lines, title="听力录音原文（Tapescript）"):
+        """听力录音原文框（米黄底）：lines 为字符串或 segments 列表"""
+        rows = []
+        for ln in lines:
+            if isinstance(ln, str):
+                rows.append([(ln, {'latin': EN_BODY, 'size': 9.5, 'ea': EA_BODY})])
+            else:
+                rows.append(ln)
+        self.box(rows, kind='orange', title="🎧 " + title)
+
     def blank_line(self, n=1):
         for _ in range(n):
             p = self._p(space_after=2)

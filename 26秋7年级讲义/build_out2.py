@@ -167,6 +167,13 @@ J.body([("2.【河南期中】I was at home last weekend.（改为一般疑问�
 J.body([("3.【单元测试】The new work ______（worry）Tom so much that he couldn't sleep well.", {})], size=10.5)
 J.body([("4.（翻译）Frank 在 2023 年搬到了杭州。", {})], size=10.5)
 J.blank_line(1)
+J.tapescript([
+    "1. W: What did you do yesterday, Tom?  M: I read an interesting book at home.",
+    "2. M: Where did you go last weekend, Lucy?  W: I went to Hangzhou with my parents.",
+    "3. W: When did the film begin?  M: It began at seven thirty.",
+    "4. M: How did you go to the museum?  W: We went there by bus.",
+    "5. W: What was the weather like yesterday?  M: It was rainy all day.",
+])
 J.answer_key("第 4 讲 · 参考答案与解析", [
     [B("课前热身："), "山东 B（two years ago 用 was）；江苏 didn't have（过去否定 didn't + 原形）。"],
     [B("词汇自测："), "realize / graduate from / this term / make a joke / amazing"],
@@ -307,6 +314,16 @@ J.body([("1. The dictionary ______ me 60 yuan last week.（cost / spend / pay �
 J.body([("2. Could you ______ me your bike? — Sorry, I lent it to Tom.（borrow / lend）", {})], size=10.5)
 J.body([("3.【完形复盘】请从上面完形中找出 3 个动词搭配并抄写。", {})], size=10.5)
 J.blank_line(1)
+J.tapescript([
+    "W: Jack, do you have to wear a school uniform every day?",
+    "M: Yes, we do. All students must wear a uniform at school.",
+    "W: How long do you spend on your homework every evening?",
+    "M: About three hours. It's really a lot!",
+    "W: What do you like doing in your free time?",
+    "M: I love texting my friends. What about you?",
+    "W: I enjoy reading. By the way, what shall we do this weekend?",
+    "M: Let's go shopping together and buy some new clothes!  W: Sounds great!",
+])
 J.answer_key("第 5 讲 · 参考答案与解析", [
     [B("词汇自测："), "wear a uniform / communicate with sb. / the latest fashion / an expert on sth. / text sb."],
     [B("Part 2 例题："), "1. borrow（向……借入）  2. took（it takes sb. time）  3. tell（tell sb. sth.）。"],
@@ -399,6 +416,12 @@ J.part_header("Homework", "课后巩固")
 J.body([B("一、书面表达")])
 J.body([("请以 “My School Life” 为题，用 80 词左右介绍你的校园生活（参照本讲三段式与亮点短语）。", {})], size=10.5)
 J.blank_line(3)
+J.tapescript([
+    "Hello, everyone. Let me tell you about my school life. My school is big and modern. I live near the "
+    "school, so I go to school on foot every day. My teachers are very kind and my classmates are "
+    "friendly. In my free time, I often read books to learn more about the world. I want to be a "
+    "teacher in the future. I really enjoy my colourful school life. Thank you.",
+])
 J.answer_key("第 6 讲 · 参考答案与解析", [
     [B("Part 2 选词填空："), "(1) centres（biggest 后接复数名词）  (2) different（修饰名词 stores）  (3) means（主语 it，单三）  (4) notices（名词复数，告示）  (5) Everyone（句首大写，作主语）。多余词：—（mean 变 means 已用）。"],
     [B("Part 3 听力（参考答案）："), "1. A  2. C  3. B  4. A  5. B（以实际录音为准）。"],

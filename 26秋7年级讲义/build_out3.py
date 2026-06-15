@@ -221,6 +221,13 @@ J.body([("1. There is ______ wrong with my computer. It doesn't work.（somethin
 J.body([("2. The students enjoyed ______（they）at the party last night.", {})], size=10.5)
 J.body([("3. I have ______ to tell you. It's a secret.（something / nothing）", {})], size=10.5)
 J.blank_line(1)
+J.tapescript([
+    "1. W: You look thirsty. Do you want something to eat?  M: No, thanks. I'd like something to drink.",
+    "2. M: Can anyone help you with your maths, Lucy?  W: My teacher is busy, but my friend can help me.",
+    "3. W: You look worried. What's wrong?  M: I lost my keys on the bus this morning.",
+    "4. M: I have a bad headache.  W: You'd better see a doctor.",
+    "5. M: How are you feeling now, Kate?  W: Much better, thank you.",
+])
 J.answer_key("第 8 讲 · 参考答案与解析", [
     [B("课前热身："), "B（肯定句陈述，用 something；修饰词 funny 后置）。"],
     [B("词汇自测："), "a piece of advice / next-door neighbour / mend the sheep pen / lose one's way / already"],
@@ -362,6 +369,14 @@ J.body([("1. The story is so ______ that all the children love it.（interest）
 J.body([("2. Please listen ______（careful）to the teacher in class.", {})], size=10.5)
 J.body([("3. My grandfather ______（retire）from work two years ago.", {})], size=10.5)
 J.blank_line(1)
+J.tapescript([
+    "W: I watched a wonderful film yesterday. It was so exciting!",
+    "M: That sounds great. By the way, do you know the old lady who sells breakfast near our school?",
+    "W: Yes! Her breakfast is cheap and warm. I really like it.",
+    "M: Me too. It only costs one yuan! And she gets up at four o'clock every morning to prepare it.",
+    "W: That's amazing. She is so kind.",
+    "M: Yes. I've decided to help her after school. Would you like to join me?  W: Of course!",
+])
 J.answer_key("第 9 讲 · 参考答案与解析", [
     [B("课前热身："), "A（人用 excited；物用 exciting：an exciting film）。"],
     [B("词汇自测："), "a comfortable life / prepare for sth. / raise the price / at a low price / retire"],
